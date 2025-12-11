@@ -23,4 +23,4 @@ time_to_sleep (in miliseconds) - The time a philosopher will spend sleeping.
 number_of_times_each_philosopher_must_eat (optional argument) - If all philosophes have eaten
 at least number_of_times_each_philosopher_must_eat times, the simulation stops. If not specified,
 the simulation stops when a philosopher dies.
-*/
+*/ 
