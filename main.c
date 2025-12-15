@@ -41,26 +41,26 @@ void	*get_time_in_ms(void *arg)
 {
 	struct timeval	tv;
 	long			result;
-	t_philo			*temp;
+	t_data			*temp;
 
-	temp = (t_philo *) arg;
+	temp = (t_data *) arg;
 	gettimeofday(&tv, NULL);
 	result = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-	temp->last_meal = result;
-	printf("Example milisecond:%ld\n", temp->last_meal);
-	return NULL;
+	temp->start_time = result;
+	return (temp);
 }
 
-void	create_philo_thread(long philo_num)
+void	create_philo_thread(long num_philo, t_philo *stats, t_data *info)
 {
-	pthread_t	philo[philo_num];
-	t_philo		stats[philo_num];
+	pthread_t	philo[num_philo];
 	int			i;
-
+	
 	i = 0;
-	while (i < philo_num)
+	pthread_mutex_init(&info->fork, NULL);
+	while (i < num_philo)
 	{
-		if (pthread_create(&philo[i], NULL, &get_time_in_ms, &stats[i]) != 0)
+		stats[i].philo_num = (i + 1);
+		if (pthread_create(&philo[i], NULL, &philo_start, &stats[i]) != 0)
 		{
 			perror("Error to create thread\n");
 			break ;
@@ -68,8 +68,9 @@ void	create_philo_thread(long philo_num)
 		i++;
 		usleep(1000);
 	}
+	routine_
 	i = 0;
-	while (i < philo_num)
+	while (i < num_philo)
 	{
 		if (pthread_join(philo[i], NULL) != 0)
 		{
@@ -85,9 +86,12 @@ int main(int argc, char **argv)
 	if (argc > 1)
 	{
 		long	philo_num;
+		t_philo	stats;
+		t_data	info;
 
 		philo_num = ft_atol(argv[1]);
-		create_philo_thread(philo_num);
+		get_time_in_ms(&info);
+		create_philo_thread(philo_num, &stats, &info);
 		return (0);
 	}
 	else
