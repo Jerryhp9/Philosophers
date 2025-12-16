@@ -1,25 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/12 15:57:18 by jhor              #+#    #+#             */
-/*   Updated: 2025/12/16 15:35:16 by jhor             ###   ########.fr       */
+/*   Created: 2025/12/16 15:36:50 by jhor              #+#    #+#             */
+/*   Updated: 2025/12/16 15:37:00 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int	ft_isdigit(int c)
-{
-	if (c >= '0' && c <= '9')
-	{
-		return (1);
-	}
-	return (0);
-}
 
 static int	ft_isspace(char c)
 {
@@ -28,10 +19,10 @@ static int	ft_isspace(char c)
 	return (0);
 }
 
-long	ft_atol(const char *str)
+int	ft_atoi(const char *str)
 {
-	long	num;
-	int		sign;
+	int	num;
+	int	sign;
 
 	num = 0;
 	sign = 1;
@@ -51,24 +42,4 @@ long	ft_atol(const char *str)
 		str++;
 	}
 	return (num * sign);
-}
-
-bool	arg_all_digits(int argc, char **argv)
-{
-	int	i;
-	int	j;
-	
-	i = 1;
-	while (i < argc)
-	{
-		j = 0;
-		while (argv[i][j])
-		{
-			if (!ft_isdigit(argv[i][j]))
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
 }

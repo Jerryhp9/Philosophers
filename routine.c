@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 17:48:09 by jhor              #+#    #+#             */
-/*   Updated: 2025/12/15 15:40:17 by jhor             ###   ########.fr       */
+/*   Updated: 2025/12/16 18:57:58 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,23 @@ void	*philo_start(void *arg)
 	return (arg);
 }
 
-void	philo_routine(t_philo *stats, t_data *info)
+bool	not_all_philo_eaten(t_philo *stats, t_data *info)
 {
-	int	i = 0;
+	int	i;
 
-	while (not_all_philo_eaten)
+	i = 0;
+	while (stats[i])
+	{
+		
+	}
+}
+
+void	philo_routine(pthread_mutex_t *forks, t_philo *stats, t_data *info)
+{
+	int	i;
+	
+	i = 0;
+	while (not_all_philo_eaten(stats, info))
 	{
 		if (stats[i].philo_num % 2 == 0)
 		{

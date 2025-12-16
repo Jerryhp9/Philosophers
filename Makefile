@@ -6,7 +6,7 @@
 #    By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/12 16:09:08 by jhor              #+#    #+#              #
-#    Updated: 2025/12/15 13:42:01 by jhor             ###   ########.fr        #
+#    Updated: 2025/12/16 15:37:19 by jhor             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CFLAGS = -g3 -Wall -Werror -Wextra
 NAME = philosopher
 RM = rm -f
 
-SRC = main.c ft_atol.c routine.c
+SRC = main.c ft_atol.c ft_atoi.c routine.c monitor.c
 
 OBJ = $(SRC:.c=.o)
 
