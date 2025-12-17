@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 16:04:11 by jhor              #+#    #+#             */
-/*   Updated: 2025/12/16 18:29:30 by jhor             ###   ########.fr       */
+/*   Updated: 2025/12/17 15:48:12 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,28 @@
 # include <string.h>
 # include <stdbool.h>
 
-typedef struct s_philo
-{
-	int				philo_num;
-	long			last_meal;
-	int				meals;
-}	t_philo;
-
 typedef struct s_data
 {
+	pthread_mutex_t	*pforks;
+	t_philo			*stats;
 	long			start_time;
 	int				num_philo;
 	long			time_to_eat;
 	long			time_to_sleep;
 	long			time_to_die;
 	int				num_of_meals;
+	int				malloc_failed;
+	int				simulation_ends;
+	int				someone_died;
 }	t_data;
+
+typedef struct s_philo
+{
+	int		philo_num;
+	long	last_meal;
+	int		meals;
+	t_data	*info;
+}	t_philo;
 
 long	ft_atol(const char *str);
 int		ft_atoi(const char *str);

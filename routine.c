@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 17:48:09 by jhor              #+#    #+#             */
-/*   Updated: 2025/12/16 18:57:58 by jhor             ###   ########.fr       */
+/*   Updated: 2025/12/17 15:52:33 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ long	get_start_time(long time)
 	return (time);
 }
 
-void	print_thinking(void *arg, t_philo *stats)
+void	print_thinking(void *arg, t_philo *stats) //!remove this for now
 {
 	pthread_mutex_t	think;
 
@@ -45,36 +45,39 @@ void	*philo_start(void *arg)
 	return (arg);
 }
 
-bool	not_all_philo_eaten(t_philo *stats, t_data *info)
+bool	not_all_philo_eaten(t_data *info)
 {
 	int	i;
 
 	i = 0;
-	while (stats[i])
+	while ()
 	{
 		
 	}
+	if (i == info->num_philo)
+		
 }
 
-void	philo_routine(pthread_mutex_t *forks, t_philo *stats, t_data *info)
+void	get_fork(t_philo *philo)
 {
-	int	i;
+	philo->info->pforks[philo->info->num_philo]
+}
+
+void	*philo_routine(void *arg)
+{
+	t_philo	*argp;
 	
-	i = 0;
-	while (not_all_philo_eaten(stats, info))
+	argp = (t_philo *)arg;
+	if (argp->philo_num % 2 != 0)
+		usleep(1000);
+	while (!argp->info->simulation_ends)
 	{
-		if (stats[i].philo_num % 2 == 0)
-		{
-			//get the time with gettimeofday func and print timestamp of taking fork and eat, lock mutex and unlock mutex when finish
-			//once finish, put back fork (unlock mutex) and sleep
-		}
-		else if (stats[i].philo_num % 2 != 0)
-		{
-			//get the time with gettimeofday func and print timestamp of sleeping
-			usleep(1000);
-			//get the fork (lock mutex) and eat
-			//get the time with gettimeofday func and print timestamp of taking fork and eat
-			//once finish, put back fork (unlock mutex) and sleep
-		}
+		//get the time with gettimeofday func and print timestamp of sleeping
+		//get the fork (lock mutex) and eat
+		//get the time with gettimeofday func and print timestamp of taking fork and eat
+		//once finish, put back fork (unlock mutex) and sleep
+		get_fork(argp);
+		eat(argp);
+		sleep_think(argp);
 	}
 }

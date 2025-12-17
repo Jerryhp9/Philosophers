@@ -48,7 +48,30 @@ void	get_time_in_ms(t_data *arg)
 	return ;
 }
 
-void	create_philo_thread(t_philo *stats, t_data *info)
+void	create_philo_stats(t_data *info)
+{
+	t_philo	*tmp;
+	int		i;
+
+	tmp = malloc(sizeof(t_philo) * (info->num_philo));
+	i = 0;
+	if (!tmp)
+	{
+		info->malloc_failed = 1;
+		return ;
+	}
+	while (i < info->num_philo)
+	{
+		tmp[i].philo_num = 0;
+		tmp[i].meals = 0;
+		tmp[i].last_meal = 0;
+		i++;
+	}
+	info->stats = tmp;
+	return ;
+}
+
+void	create_philo_thread(t_data *info)
 {
 	pthread_t	philo[info->num_philo];
 	int			i;
@@ -56,8 +79,9 @@ void	create_philo_thread(t_philo *stats, t_data *info)
 	i = 0;
 	while (i < info->num_philo)
 	{
-		stats[i].philo_num = (i + 1);
-		if (pthread_create(&philo[i], NULL, &philo_start, &stats[i]) != 0)
+		create_philo_stats(info);
+		info->stats[i].philo_num = (i + 1);
+		if (pthread_create(&philo[i], NULL, &philo_start, &info->stats[i]) != 0)
 		{
 			perror("Error to create thread\n");
 			break ;
@@ -65,7 +89,7 @@ void	create_philo_thread(t_philo *stats, t_data *info)
 		i++;
 		usleep(1000);
 	}
-	monitoring_thread_creation(stats, info); //where the monitoring thread is created and run to check on other philos
+	monitoring_thread_creation(info->stats, info); //where the monitoring thread is created and run to check on other philos
 	i = 0;
 	while (i < info->num_philo)
 	{
@@ -108,15 +132,15 @@ int	collect_user_info(t_data *info, int argc, char **argv)
 	info->time_to_sleep = ft_atol(argv[4]);
 	if (argc == 6)
 		info->num_of_meals = ft_atoi(argv[5]);
+	else
+		info->num_of_meals = 1;
 	return (0);
 }
-
 
 int main(int argc, char **argv)
 {
 	if (argc == 5 || argc == 6)
 	{
-		t_philo	stats;
 		t_data	*info;
 
 		info = malloc(sizeof(t_data));
@@ -128,7 +152,7 @@ int main(int argc, char **argv)
 		printf("time to eat:%ld\n", info->time_to_eat);
 		printf("time to sleep:%ld\n", info->time_to_sleep);
 		printf("number of meals:%d\n", info->num_of_meals);
-		create_philo_thread(&stats, info);
+		create_philo_thread(info);
 		return (0);
 	}
 	else

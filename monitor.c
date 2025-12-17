@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 10:35:58 by jhor              #+#    #+#             */
-/*   Updated: 2025/12/16 18:37:42 by jhor             ###   ########.fr       */
+/*   Updated: 2025/12/17 11:28:26 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ void	monitoring_thread_creation(t_philo *stats, t_data *info)
 	forks = malloc(sizeof(pthread_mutex_t) * (info->num_philo - 1));
 	if (!forks)
 	{
-		perror("Malloc failed\n");
+		perror("Malloc");
 		return ;
 	}
+	info->pforks = forks;
 	while (i < info->num_philo)
 	{
 		init_mutex = pthread_mutex_init(forks, NULL);
